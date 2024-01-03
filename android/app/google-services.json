@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "238322390076",
+    "project_id": "learning-platform-d82cd",
+    "storage_bucket": "learning-platform-d82cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238322390076:android:cca14bdba0903385ad9f39",
+        "android_client_info": {
+          "package_name": "com.example.learning_ptalform"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSzlg8Qt6HQyraiBnz4s18biZISbtkL3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
