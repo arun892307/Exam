@@ -33,6 +33,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
 
   late List<int> questionStatus ;
   List<dynamic>options=[];
+  List<dynamic>optionsH=[];
   dynamic selectedOption = "";
   late int optionIndex=0;
   var currentChoice = '';
@@ -41,8 +42,6 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
   bool loaded = false;
   bool skip=false;
   String language = "English";
-  List<Map<String,dynamic>> hindiQuestions=[];
-
 
   @override
   initState() {
@@ -527,7 +526,9 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                       itemBuilder: (context, index) {
                         count=index;
                         options.clear();
+                        optionsH.clear();
                         options=snap.data()?["Questions"][index]["Options"];
+                        optionsH=snap.data()?["Questions"][index]["Options"];
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -544,7 +545,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                       SizedBox(
                                         width: size.width * 1,
                                         child: AutoSizeText(
-                                          "${index + 1}. ${language=="English" ? snap.data()!["Questions"][index]["Question"] : hindiQuestions[index]["Question"]}",
+                                          "${index + 1}. ${language=="English" ? snap.data()!["Questions"][index]["Question"] : snap.data()!["Questions"][index]["QuestionH"]}",
                                           style: GoogleFonts.poppins(
                                             fontSize: size.width * 0.06,
                                             color: Colors.white70,
@@ -590,7 +591,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                                   ),
                                                   child: ListTile(
                                                     title: AutoSizeText(
-                                                      "${language == "English" ? options[index1] : hindiQuestions[index]["Options"][index1]}",
+                                                      "${language == "English" ? options[index1] : optionsH[index1]}",
                                                       style: GoogleFonts.poppins(
                                                         color: options[index1]==selectedOption?Colors.green:Colors.white70,
                                                       ),
@@ -801,7 +802,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
     );
   }
 
-fetchQuiz() async {
+  fetchQuiz() async {
     await FirebaseFirestore.instance
         .collection("Test")
         .doc("Practice Test ${widget.notesId}")
@@ -810,32 +811,12 @@ fetchQuiz() async {
       snap = value;
       print("$value");
     }).whenComplete(() async {
-      final translator = GoogleTranslator();
-      for(int i=0 ; i<snap.data()?["Questions"].length ; i++){
-        String question ="";
-        List<String> options=[];
-        await translator.translate(snap.data()?["Questions"][i]["Question"], to: 'hi').then((value){
-          question = value.text;
-        }).whenComplete(() async {
-          for(int j=0; j<snap.data()?["Questions"][i]["Options"].length ; j++ ){
-            await translator.translate(snap.data()?["Questions"][i]["Options"][j], to: 'hi').then((value){
-              options.add(value.text);
-            });
-          }
-          hindiQuestions.add({"Question" : question , "Options" : options});
-        });
-
-      }
-
       setState(() {
         questionStatus = List.filled(snap.data()!["Questions"].length, 0);
         loaded = true;
       });
     });
   }
-
-
-
 }
 
 class time extends StatefulWidget {

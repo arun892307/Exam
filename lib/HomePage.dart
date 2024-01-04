@@ -9,7 +9,6 @@ import 'Constraints.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -58,97 +57,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                       fontSize: size.height * 0.02,
                       fontWeight: FontWeight.w600),
                 ),
-                currentAccountPicture:Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: size.height*0.2,
+                currentAccountPicture: CircleAvatar(
+                  radius: size.height*0.2,
 
-                      backgroundImage:usermodel["Profile_URL"]!=null?
+                  backgroundImage:usermodel["Profile_URL"]!=null?
 
-                      NetworkImage(usermodel["Profile_URL"])
-                          :
-                      null,
-                      // backgroundColor: Colors.teal.shade300,
-                      child: usermodel["Profile_URL"]==null?
-                      AutoSizeText(
-                        usermodel["Name"].toString().substring(0,1),
-                        style: GoogleFonts.exo(
-                            fontSize: size.height * 0.05,
-                            fontWeight: FontWeight.w600),
-                      )
-                          :
-                      null,
-                    ),
-                    Positioned(
-                      bottom: -5,
-                      left: 35,
-                      child: IconButton(
-                        icon: Icon(Icons.camera_enhance,size:size.height*0.03 ,color: Colors.black,),
-                        onPressed: () async {
-
-                          /*  ImagePicker imagePicker = ImagePicker();
-                      print(imagePicker);
-                      XFile? file = await imagePicker.pickImage(
-                          source: ImageSource.gallery);
-                      print(file?.path);
-
-                      if (file!.path.isNotEmpty) {
-                        setState(() {
-                          profile_update = true;
-                        });
-                        // Create reference of Firebase Storage
-
-                        Reference reference =
-                        FirebaseStorage.instance.ref();
-
-                        // Create Directory into Firebase Storage
-
-                        Reference image_directory =
-                        reference.child("User_profile");
-
-                        Reference image_folder = image_directory
-                            .child("${usermodel["Email"]}");
-
-                        await image_folder
-                            .putFile(File(file!.path))
-                            .whenComplete(
-                              () async {
-                            String download_url =
-                            await image_folder.getDownloadURL();
-                            print("uploaded");
-                            print(download_url);
-                            await FirebaseFirestore.instance
-                                .collection("Teachers")
-                                .doc(FirebaseAuth
-                                .instance.currentUser?.email)
-                                .update({
-                              "Profile_URL": download_url,
-                            }).whenComplete(() async {
-                              await FirebaseFirestore.instance
-                                  .collection("Teachers")
-                                  .doc(FirebaseAuth
-                                  .instance.currentUser!.email)
-                                  .get()
-                                  .then((value) {
-                                setState(() {
-                                  usermodel = value.data()!;
-                                });
-                              }).whenComplete(() {
-                                setState(() {
-                                  profile_update = false;
-                                });
-                              });
-                            });
-                            setState(() {
-                              profile_update = false;
-                            });
-                          },
-                        );
-                      }*/
-                        } ,
-                      ),
-                    )
-                  ],
+                  NetworkImage(usermodel["Profile_URL"])
+                      :
+                  null,
+                  // backgroundColor: Colors.teal.shade300,
+                  child: usermodel["Profile_URL"]==null?
+                  AutoSizeText(
+                    usermodel["Name"].toString().substring(0,1),
+                    style: GoogleFonts.exo(
+                        fontSize: size.height * 0.05,
+                        fontWeight: FontWeight.w600),
+                  )
+                      :
+                  null,
                 )
             ),
             ListTile(
@@ -179,8 +105,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                   await FirebaseAuth.instance.signOut();
                 }
             ),
-
-
           ],
         ),
       ),
@@ -207,82 +131,82 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
           child: Column(
             children: [
               SizedBox(
-                height: size.height * 0.06,
-                width: size.width * 1,
-                child: Column(
-                  children: [
-                    TabBar(
-                      indicatorColor: Colors.black,
-                      labelColor: Colors.green,
-
-                      controller: _tabController,
-                      onTap: (value) {
-                        setState(() {
-                          currTab=value;
-                        });
-                      },
-                      tabs: [
-                        SizedBox(
-                          height: size.height*0.05,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                width: size.width*0.065,
-                                child: Image.asset("assets/icon/practicepaper.png"),
-                              ),
-                              SizedBox(
-                                width: size.width*0.02,
-                              ),
-                              FittedBox(
-                                fit: BoxFit.cover,
-                                child: AutoSizeText(
-                                  "Practice Paper",
-                                  style: GoogleFonts.openSans(
-                                      fontSize: size.height * 0.02,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height*0.05,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                width: size.width*0.065,
-                                child: Image.asset("assets/icon/previousyearPaper.png"),
-                              ),
-                              FittedBox(
-                                fit: BoxFit.cover,
-                                child: AutoSizeText(
-                                  "Previous Paper",
-                                  style: GoogleFonts.openSans(
-                                      fontSize: size.height * 0.02,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
                 height: size.height,
                 width: size.width,
                 child: tabs[currTab],
               )
             ],
           ),
+        ),
+      ),
+      bottomSheet: SizedBox(
+        height: size.height * 0.06,
+        width: size.width * 1,
+        child: Column(
+          children: [
+            TabBar(
+              indicatorColor: Colors.black,
+              labelColor: Colors.green,
+
+              controller: _tabController,
+              onTap: (value) {
+                setState(() {
+                  currTab=value;
+                });
+              },
+              tabs: [
+                SizedBox(
+                  height: size.height*0.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: size.width*0.065,
+                        child: Image.asset("assets/icon/practicepaper.png"),
+                      ),
+                      SizedBox(
+                        width: size.width*0.02,
+                      ),
+                      FittedBox(
+                        fit: BoxFit.cover,
+                        child: AutoSizeText(
+                          "Practice Paper",
+                          style: GoogleFonts.openSans(
+                              fontSize: size.height * 0.02,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: size.height*0.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: size.width*0.065,
+                        child: Image.asset("assets/icon/previousyearPaper.png"),
+                      ),
+                      FittedBox(
+                        fit: BoxFit.cover,
+                        child: AutoSizeText(
+                          "Previous Paper",
+                          style: GoogleFonts.openSans(
+                              fontSize: size.height * 0.02,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
