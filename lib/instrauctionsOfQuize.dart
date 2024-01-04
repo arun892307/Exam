@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'TakeQuize.dart';
 
 class QuizInstructions extends StatelessWidget {
-  QuizInstructions({Key? key, required this.index}) : super(key: key);
+  const QuizInstructions({Key? key, required this.index}) : super(key: key);
   final int index;
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class QuizInstructions extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: AutoSizeText("Practice Test $index",
-        style: GoogleFonts.tiltNeon(
+        style: GoogleFonts.openSans(
           fontWeight: FontWeight.w500,
           fontSize: size.height*0.022,
           color: Colors.black
@@ -287,7 +287,7 @@ class QuizInstructions extends StatelessWidget {
                   ),
                   child: Center(
                     child: AutoSizeText("Q",
-                      style: GoogleFonts.tiltNeon(
+                      style: GoogleFonts.openSans(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold
@@ -299,7 +299,7 @@ class QuizInstructions extends StatelessWidget {
               SizedBox(
                 width: size.width*0.1,
               ),
-              AutoSizeText("Answered",style: GoogleFonts.tiltNeon(
+              AutoSizeText("Answered",style: GoogleFonts.openSans(
                 fontSize: size.height*0.022,
                 color: Colors.black,
 
@@ -328,7 +328,7 @@ class QuizInstructions extends StatelessWidget {
                   ),
                   child: Center(
                     child: AutoSizeText("Q",
-                      style: GoogleFonts.tiltNeon(
+                      style: GoogleFonts.openSans(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold
@@ -340,7 +340,7 @@ class QuizInstructions extends StatelessWidget {
               SizedBox(
                 width: size.width*0.1,
               ),
-              AutoSizeText("Marked for review",style: GoogleFonts.tiltNeon(
+              AutoSizeText("Marked for review",style: GoogleFonts.openSans(
                 fontSize: size.height*0.022,
                 color: Colors.black,
 
@@ -368,7 +368,7 @@ class QuizInstructions extends StatelessWidget {
                   ),
                   child: Center(
                     child: AutoSizeText("Q",
-                      style: GoogleFonts.tiltNeon(
+                      style: GoogleFonts.openSans(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold
@@ -380,7 +380,7 @@ class QuizInstructions extends StatelessWidget {
               SizedBox(
                 width: size.width*0.1,
               ),
-              AutoSizeText("Unseen",style: GoogleFonts.tiltNeon(
+              AutoSizeText("Unseen",style: GoogleFonts.openSans(
                 fontSize: size.height*0.022,
                 color: Colors.black,
 
@@ -408,7 +408,7 @@ class QuizInstructions extends StatelessWidget {
                   ),
                   child: Center(
                     child: AutoSizeText("Q",
-                      style: GoogleFonts.tiltNeon(
+                      style: GoogleFonts.openSans(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold
@@ -420,7 +420,7 @@ class QuizInstructions extends StatelessWidget {
               SizedBox(
                 width: size.width*0.1,
               ),
-              AutoSizeText("Unattempted",style: GoogleFonts.tiltNeon(
+              AutoSizeText("Unattempted",style: GoogleFonts.openSans(
                 fontSize: size.height*0.022,
                 color: Colors.black,
 

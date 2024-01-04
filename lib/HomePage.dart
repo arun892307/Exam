@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                 fit: BoxFit.cover,
                                 child: AutoSizeText(
                                   "Practice Paper",
-                                  style: GoogleFonts.tiltNeon(
+                                  style: GoogleFonts.openSans(
                                       fontSize: size.height * 0.02,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black
@@ -261,7 +261,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                 fit: BoxFit.cover,
                                 child: AutoSizeText(
                                   "Previous Paper",
-                                  style: GoogleFonts.tiltNeon(
+                                  style: GoogleFonts.openSans(
                                       fontSize: size.height * 0.02,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black

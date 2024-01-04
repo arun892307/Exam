@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:translator/translator.dart';
 
 import 'Constraints.dart';
 import 'loadingscreen.dart';
@@ -34,12 +35,13 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
   List<dynamic>options=[];
   dynamic selectedOption = "";
   late int optionIndex=0;
-  var CurrentChoice = '';
+  var currentChoice = '';
   late DocumentSnapshot<Map<String, dynamic>> snap;
   PageController pageQuestionController = PageController();
   bool loaded = false;
   bool skip=false;
   String language = "English";
+  List<Map<String,dynamic>> hindiQuestions=[];
 
 
   @override
@@ -174,7 +176,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                     borderRadius: BorderRadius.circular(size.width*0.02),
                                   ),
                                 ),
-                                child:Text("No",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
+                                child:Text("No",style: GoogleFonts.openSans(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                               ),
@@ -211,7 +213,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                     borderRadius: BorderRadius.circular(size.width*0.02),
                                   ),
                                 ),
-                                child:Text("Yes",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
+                                child:Text("Yes",style: GoogleFonts.openSans(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                               ),
@@ -315,7 +317,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                                 borderRadius: BorderRadius.circular(size.width*0.02),
                                               ),
                                             ),
-                                            child:Text("No",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
+                                            child:Text("No",style: GoogleFonts.openSans(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                                           ),
@@ -352,7 +354,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                                 borderRadius: BorderRadius.circular(size.width*0.02),
                                               ),
                                             ),
-                                            child:Text("Yes",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
+                                            child:Text("Yes",style: GoogleFonts.openSans(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                                           ),
@@ -386,7 +388,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                           language = value!;
                         });
                       },
-                    textStyle: GoogleFonts.tiltNeon(
+                    textStyle: GoogleFonts.openSans(
                       color: Colors.white,
                       fontSize: 16,
 
@@ -418,7 +420,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                   children: [
                     SizedBox(height: size.height*0.045,),
                     AutoSizeText("Questions Status",
-                      style: GoogleFonts.tiltNeon(
+                      style: GoogleFonts.openSans(
                       color: Colors.black,
                       fontSize: 22,
                       fontWeight: FontWeight.bold
@@ -443,7 +445,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                               ),
                               child: Center(
                                 child: AutoSizeText("${index+1}",
-                                  style: GoogleFonts.tiltNeon(
+                                  style: GoogleFonts.openSans(
                                       color: Colors.black,
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold
@@ -493,23 +495,22 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: snap.data()?["Questions"].length,
-                      itemBuilder: (
-                          context,
-                          index2,
-                          ) {
+                      itemBuilder: (context, index2,) {
                         return Padding(
                           padding: EdgeInsets.all(size.width * 0.005),
                           child: SizedBox(
-                            width: (size.width * 0.9 -
-                                (size.width *
-                                    0.01 *
-                                    (snap.data()?["Questions"].length - 1))) / snap.data()?["Questions"].length,
+                            width: (size.width * 0.9 - (size.width * 0.01 * (snap.data()?["Questions"].length - 1))) / snap.data()?["Questions"].length,
                             child: Divider(
                               color: (count) > index2
-                                  ? Colors.green
-                                  : (count) ==index2
-                                  ? Colors.red
-                                  : Colors.white70,
+                                  ?
+                              Colors.green
+                                  :
+                              (count) ==index2
+                                  ?
+                              Colors.red
+                                  :
+                              Colors.white70,
+
                               thickness: size.height * 0.005,
                               height: size.height * 0.005,
                             ),
@@ -543,7 +544,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                       SizedBox(
                                         width: size.width * 1,
                                         child: AutoSizeText(
-                                          "${index + 1}. ${snap.data()?["Questions"][index]["Question"]}",
+                                          "${index + 1}. ${language=="English" ? snap.data()!["Questions"][index]["Question"] : hindiQuestions[index]["Question"]}",
                                           style: GoogleFonts.poppins(
                                             fontSize: size.width * 0.06,
                                             color: Colors.white70,
@@ -589,7 +590,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                                   ),
                                                   child: ListTile(
                                                     title: AutoSizeText(
-                                                      "${options[index1]}",
+                                                      "${language == "English" ? options[index1] : hindiQuestions[index]["Options"][index1]}",
                                                       style: GoogleFonts.poppins(
                                                         color: options[index1]==selectedOption?Colors.green:Colors.white70,
                                                       ),
@@ -658,7 +659,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                             });
 
                           },
-                          child: AutoSizeText("Previous",style: GoogleFonts.tiltNeon(
+                          child: AutoSizeText("Previous",style: GoogleFonts.openSans(
                               color: Colors.white,
                               fontSize: 16
                           ),)
@@ -688,7 +689,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
 
                           },
                           child: AutoSizeText("Mark for review",
-                            style: GoogleFonts.tiltNeon(
+                            style: GoogleFonts.openSans(
                               color: Colors.white,
                               fontSize: 16
                           ),)
@@ -775,7 +776,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                               "Save & Next"
                                   :
                               "Submit",
-                            style: GoogleFonts.tiltNeon(
+                            style: GoogleFonts.openSans(
                               color: Colors.black,
                               fontSize: 16
                             ),
@@ -791,7 +792,8 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
 
             )
         )
-    ):
+    )
+        :
     const SizedBox(
       child: loading(
         text: 'Please wait Quiz is Fetching from Server',
@@ -807,7 +809,24 @@ fetchQuiz() async {
         .then((value) {
       snap = value;
       print("$value");
-    }).whenComplete(() {
+    }).whenComplete(() async {
+      final translator = GoogleTranslator();
+      for(int i=0 ; i<snap.data()?["Questions"].length ; i++){
+        String question ="";
+        List<String> options=[];
+        await translator.translate(snap.data()?["Questions"][i]["Question"], to: 'hi').then((value){
+          question = value.text;
+        }).whenComplete(() async {
+          for(int j=0; j<snap.data()?["Questions"][i]["Options"].length ; j++ ){
+            await translator.translate(snap.data()?["Questions"][i]["Options"][j], to: 'hi').then((value){
+              options.add(value.text);
+            });
+          }
+          hindiQuestions.add({"Question" : question , "Options" : options});
+        });
+
+      }
+
       setState(() {
         questionStatus = List.filled(snap.data()!["Questions"].length, 0);
         loaded = true;

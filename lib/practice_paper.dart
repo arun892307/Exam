@@ -112,7 +112,7 @@ class _PracticePapersState extends State<PracticePapers> {
                     ListTile(
                       title: AutoSizeText(
                         "Start Test",
-                        style: GoogleFonts.tiltNeon(
+                        style: GoogleFonts.openSans(
                             fontSize: 18,
                             color: Colors.black,
                         ),
