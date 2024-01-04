@@ -1,20 +1,26 @@
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+import 'Login.dart';
+
+class CreateAccount extends StatefulWidget {
+  const CreateAccount({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<CreateAccount> createState() => _CreateAccountState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _CreateAccountState extends State<CreateAccount> {
   String errorString="";
   bool hide =true;
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final TextEditingController name=TextEditingController();
 
 
   @override
@@ -25,8 +31,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
+          decoration: const BoxDecoration(
+            color: Colors.blueGrey
+            /*gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
@@ -34,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const Color.fromRGBO(68, 174, 218, 1),
                 Colors.deepPurple.shade300
               ],
-            ),
+            ),*/
           ),
           child: SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(
@@ -55,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
-                    border: Border.all(color: Colors.black),
+                    border: Border.all(color: Colors.black,width: size.height*0.0022),
                     boxShadow: const [
                       BoxShadow(
                           blurRadius: 60,
@@ -65,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       )
                     ],
                     image: const DecorationImage(
-                        image: AssetImage("assets/icon/icon.png")),
+                        image: AssetImage("assets/icon/railway_icon.png"),fit: BoxFit.contain),
                   ),
                   height: MediaQuery
                       .of(context)
@@ -78,18 +85,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       .size
                       .height * 0.06,
                 ),
-                AutoSizeText("Welcome To Our App",
-                style:GoogleFonts.libreBaskerville(
-                  fontSize: size.width*0.06,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white54,
-                  shadows: <Shadow>[
-                    const Shadow(
-                      offset: Offset(1, 1),
-                      color: Colors.black,
-                    ),
-                  ],
-                ),),
+                AnimatedTextKit(
+              animatedTexts: [
+
+                WavyAnimatedText('Railway Learning Platform',
+
+                  textStyle: GoogleFonts.libreBaskerville(
+                    fontSize: size.width*0.06,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white54,
+                    shadows: <Shadow>[
+                      const Shadow(
+                        offset: Offset(1, 1),
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
+              repeatForever: true,
+            ),
                 SizedBox(
                   height: MediaQuery
                       .of(context)
@@ -215,6 +231,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           keyboardType: TextInputType.visiblePassword),
                     ),
+
+                    SizedBox(
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.03,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(30)),
+                        border: Border.all(color: Colors.black,),
+                        boxShadow: const [
+                          BoxShadow(
+                              blurRadius: 20,
+                              blurStyle: BlurStyle.outer,
+                              color: Colors.black54,
+                              offset: Offset(1, 1)
+                          )
+                        ],
+                      ),
+                      child: TextField(
+                          controller: name,
+                          obscureText: false,
+                          enableSuggestions: true,
+                          autocorrect: true,
+                          cursorColor: Colors.white,
+                          style: TextStyle(color: Colors.white.withOpacity(0.9)),
+                          decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: (){
+                                  setState(() {
+                                    name.clear();
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.clear_outlined,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.drive_file_rename_outline,
+                                color: Colors.white,
+                              ),
+                              label: const Text("Enter Your Name"),
+                              labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.9)),
+                              filled: true,
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              fillColor: Colors.black26.withOpacity(0.7),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: const BorderSide(
+                                      width: 0, style: BorderStyle.none)
+                              )
+                          ),
+                          keyboardType: TextInputType.emailAddress),
+                    ),
                     SizedBox(
                         height: MediaQuery
                             .of(context)
@@ -235,18 +309,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       child: ElevatedButton(
                         onPressed: () async{
-                          /*if(email.text.trim().isNotEmpty){
+                          if(email.text.trim().isNotEmpty){
                             String temp = await signIn(email.text.trim(), password.text.trim());
                             await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-                            final record = await FirebaseFirestore.instance.collection("Teacher_record").doc("Email").get();
+                            final record = await FirebaseFirestore.instance.collection("User Details").doc(email.text.trim()).get();
                             record.exists
                                 ?
-                            await FirebaseFirestore.instance.collection("Teacher_record").doc("Email").update({
-                              "Email": FieldValue.arrayUnion([FirebaseAuth.instance.currentUser?.email])
-                            })
+                              null
                                 :
-                            await FirebaseFirestore.instance.collection("Teacher_record").doc("Email").set({
-                              "Email": FieldValue.arrayUnion([FirebaseAuth.instance.currentUser?.email])
+                            await FirebaseFirestore.instance.collection("User Details").doc(email.text.trim()).set({
+                              "Email": email.text.trim(),
+                              "Name":name.text.trim()
+                            }).whenComplete(() async {
+                              await FirebaseAuth.instance.signOut().whenComplete(() {
+                                Navigator.pop(context);
+                              });
                             });
 
                             if(temp=='1'){
@@ -262,11 +339,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   duration: const Duration(seconds: 2),
                                   description: 'Your account is created successfully. Please verify your email',
                                   leading: const Icon(
-                                    Icons.error_outline_outlined,
-                                    color: Colors.red,
+                                    Icons.check,
+                                    color: Colors.green,
                                     size: 55,
                                   )
                               );
+
                             }
 
 
@@ -309,7 +387,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   color: Colors.red,
                                   size: 55,
                                 ));
-                          }*/
+                          }
 
                         },
                         style: ElevatedButton.styleFrom(
@@ -317,12 +395,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.black54,
                             elevation: 30
-
                         ),
-                        child: const Text("Sign Up", style: TextStyle(
+                        child: const Text("Create Account", style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16
+                            fontSize: 18
                         ),),
                       ),
                     ),
@@ -347,17 +424,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         TextButton(
 
           onPressed: () {
-           /* Navigator.pushReplacement(
+            Navigator.pushReplacement(
               context,
               PageTransition(
-                child: const SignInScreen(),
+                child: const LogIn(),
                 type: PageTransitionType.leftToRightJoined,
                 duration: const Duration(milliseconds: 350),
-                childCurrent: const SignUpScreen(),
+                childCurrent: const CreateAccount(),
               ),
-            );*/
+            );
           },
-          child: const Text("Sign In", style: TextStyle(
+          child: const Text("Log In", style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               shadows: [
@@ -374,7 +451,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
     );
   }
-  /*Future<String> signIn(String email, String password) async {
+  Future<String> signIn(String email, String password) async {
     try {
       await  FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
       return "1";
@@ -382,5 +459,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
       print(e.code);
       return e.toString().split(']')[1].trim();
     }
-  }*/
+  }
 }
