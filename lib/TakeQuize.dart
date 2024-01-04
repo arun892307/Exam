@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:translator/translator.dart';
 
 import 'Constraints.dart';
 import 'loadingscreen.dart';
@@ -431,23 +430,39 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                         itemCount: snap.data()?["Questions"].length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                         itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 20,
-                            shape: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15))
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black,width: 1.5),
-                                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                color: questionStatus[index]==1 ?Colors.green : questionStatus[index]==0 ? Colors.grey : questionStatus[index]==2 ? Colors.red :Colors.orangeAccent,
+                          return InkWell(
+                            onTap: (){
+                              setState(() {
+                                int curr= count;
+                                count=index;
+                                pageQuestionController.animateToPage(count,
+                                    duration: const Duration(milliseconds: 100),
+                                    curve: Curves.linear);
+                                selectedOption="";
+                                if(questionStatus[curr] == 0){
+                                  questionStatus[curr] = 2;
+                                }
+                              });
+                              Scaffold.of(context).closeEndDrawer();
+                            },
+                            child: Card(
+                              elevation: 20,
+                              shape: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(15))
                               ),
-                              child: Center(
-                                child: AutoSizeText("${index+1}",
-                                  style: GoogleFonts.openSans(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black,width: 1.5),
+                                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                  color: questionStatus[index]==1 ?Colors.green : questionStatus[index]==0 ? Colors.grey : questionStatus[index]==2 ? Colors.red :Colors.orangeAccent,
+                                ),
+                                child: Center(
+                                  child: AutoSizeText("${index+1}",
+                                    style: GoogleFonts.openSans(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold
+                                    ),
                                   ),
                                 ),
                               ),
@@ -528,7 +543,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                         options.clear();
                         optionsH.clear();
                         options=snap.data()?["Questions"][index]["Options"];
-                        optionsH=snap.data()?["Questions"][index]["Options"];
+                        optionsH=snap.data()?["Questions"][index]["OptionsH"] ?? [];
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,

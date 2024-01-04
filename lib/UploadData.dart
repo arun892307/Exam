@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_ptalform/loadingscreen.dart';
 import 'package:translator/translator.dart';
 
 class UploadData extends StatefulWidget {
@@ -155,9 +156,13 @@ class _UploadDataState extends State<UploadData> {
             option2.text.isNotEmpty &&
             option3.text.isNotEmpty &&
             option4.text.isNotEmpty &&
-            question.text.isNotEmpty
+            question.text.isNotEmpty &&
+            paperNo.text.isNotEmpty
             ){
               final translator = GoogleTranslator();
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const loading(text: "Tham jaa bhai upload hone de");
+              },));
               List<dynamic> options = [
                 option1.text.trim(),
                 option2.text.trim(),
@@ -215,6 +220,7 @@ class _UploadDataState extends State<UploadData> {
                   option4.clear();
                   question.clear();
                 });
+                Navigator.pop(context);
               });
             }
             else{
