@@ -4,7 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'MainPage.dart';
+import '../MainPage.dart';
 
 class Checkconnection extends StatelessWidget {
   Checkconnection({Key? key}) : super(key: key);

@@ -100,9 +100,8 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
             context: context,
             builder: (context) {
               return Center(
-                  child:Container
-                    (
-                    height: size.height*0.26,
+                  child:Container(
+                    height: size.height*0.25,
                     width: size.width*0.732,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(size.height*0.02)),
@@ -134,13 +133,14 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                           height: size.height*0.022,
                         ),
                         Padding(
-                          padding:  EdgeInsets.only(left:size.width*0.1, right:size.width*0.01),
+                          padding:  EdgeInsets.only(left:size.width*0.03, right:size.width*0.03),
                           child: AutoSizeText(
                             "If you exit from this page your response will not be submit.",
                             style: GoogleFonts.openSans(
                                 color: Colors.white70,
                                 fontSize: size.height*0.022
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                         SizedBox(
@@ -150,7 +150,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              height: size.height*0.038,
+                              height: size.height*0.05,
                               width: size.width*0.15,
                               decoration:  BoxDecoration(
                                 gradient: const LinearGradient(
@@ -174,13 +174,13 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                     borderRadius: BorderRadius.circular(size.width*0.02),
                                   ),
                                 ),
-                                child:Text("No",style: GoogleFonts.exo(fontSize: size.width*0.032,color: Colors.black,fontWeight: FontWeight.w400),),
+                                child:Text("No",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                               ),
                             ),
                             Container(
-                              height: size.height*0.038,
+                              height: size.height*0.05,
                               width: size.width*0.15,
                               decoration:  BoxDecoration(
                                 gradient: const LinearGradient(
@@ -198,6 +198,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                   count = 0;
                                   totalMinutes;
                                   score=0;
+                                  // Navigator.pop(context);
                                   _timer.cancel();
                                   Navigator.pop(context);
                                   Navigator.pop(context);
@@ -210,7 +211,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                     borderRadius: BorderRadius.circular(size.width*0.02),
                                   ),
                                 ),
-                                child:Text("Yes",style: GoogleFonts.exo(fontSize: size.width*0.032,color: Colors.black,fontWeight: FontWeight.w400),),
+                                child:Text("Yes",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                               ),
@@ -235,15 +236,14 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
               appBar: AppBar(
                 titleSpacing: 0,
                 leading: IconButton(
-                    onPressed: () {
+                    onPressed: (){
                       showDialog(
                         context: context,
                         builder: (context) {
                           return Center(
-                              child:Container
-                                (
-                                height: size.height*0.22,
-                                width: size.width*0.72,
+                              child:Container(
+                                height: size.height*0.25,
+                                width: size.width*0.732,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(Radius.circular(size.height*0.02)),
                                     border: Border.all(
@@ -274,13 +274,14 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                       height: size.height*0.022,
                                     ),
                                     Padding(
-                                      padding:  EdgeInsets.only(left:size.width*0.1, right:size.width*0.01),
+                                      padding:  EdgeInsets.only(left:size.width*0.03, right:size.width*0.03),
                                       child: AutoSizeText(
                                         "If you exit from this page your response will not be submit.",
                                         style: GoogleFonts.openSans(
                                             color: Colors.white70,
                                             fontSize: size.height*0.022
                                         ),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                     SizedBox(
@@ -290,7 +291,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Container(
-                                          height: size.height*0.038,
+                                          height: size.height*0.05,
                                           width: size.width*0.15,
                                           decoration:  BoxDecoration(
                                             gradient: const LinearGradient(
@@ -314,13 +315,13 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                                 borderRadius: BorderRadius.circular(size.width*0.02),
                                               ),
                                             ),
-                                            child:Text("No",style: GoogleFonts.exo(fontSize: size.width*0.032,color: Colors.black,fontWeight: FontWeight.w400),),
+                                            child:Text("No",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                                           ),
                                         ),
                                         Container(
-                                          height: size.height*0.038,
+                                          height: size.height*0.05,
                                           width: size.width*0.15,
                                           decoration:  BoxDecoration(
                                             gradient: const LinearGradient(
@@ -343,7 +344,6 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                               Navigator.pop(context);
                                               Navigator.pop(context);
 
-
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.transparent,
@@ -352,7 +352,7 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                                 borderRadius: BorderRadius.circular(size.width*0.02),
                                               ),
                                             ),
-                                            child:Text("Yes",style: GoogleFonts.exo(fontSize: size.width*0.032,color: Colors.black,fontWeight: FontWeight.w400),),
+                                            child:Text("Yes",style: GoogleFonts.tiltNeon(fontSize: size.width*0.035,color: Colors.black,fontWeight: FontWeight.w500),),
 
 
                                           ),
@@ -381,14 +381,6 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                 elevation: 0,
                 actions: [
                   DropdownMenu(
-                    menuStyle: const MenuStyle(
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(side: BorderSide(color: Colors.white),borderRadius: BorderRadius.all(Radius.circular(12))))
-                    ),
-                    label: AutoSizeText(language,style: GoogleFonts.tiltNeon(
-                      color: Colors.white,
-                      fontSize: 16,
-
-                    )),
                     onSelected: (value) {
                         setState(() {
                           language = value!;
@@ -409,6 +401,8 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                             label: "English"
                         ),
                       ],
+                    helperText: "English",
+                    initialSelection: "English",
                   ),
                   Builder(
                     builder: (context) => IconButton(
@@ -664,10 +658,15 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                             });
 
                           },
-                          child: AutoSizeText("Previous")
+                          child: AutoSizeText("Previous",style: GoogleFonts.tiltNeon(
+                              color: Colors.white,
+                              fontSize: 16
+                          ),)
                       )
                           :
-                      const SizedBox(),
+                      SizedBox(
+                        width: size.width*0.225
+                      ),
                       loaded && (count< snap.data()?["Questions"].length-1)
                           ?
                       ElevatedButton(
@@ -688,14 +687,18 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                             });
 
                           },
-                          child: const AutoSizeText("Mark for review")
+                          child: AutoSizeText("Mark for review",
+                            style: GoogleFonts.tiltNeon(
+                              color: Colors.white,
+                              fontSize: 16
+                          ),)
                       )
                       :
                       const SizedBox(),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)),side: BorderSide(color: Colors.black,width: 1.5))
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)),side: BorderSide(color: Colors.black,width: 2))
                           ),
                           onPressed: loaded && (count< snap.data()?["Questions"].length-1)
                               ?
@@ -766,7 +769,17 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                             }
                             _timer.cancel();
                           },
-                          child: AutoSizeText(loaded && (count< snap.data()?["Questions"].length-1 )? "Save & Next" : "Submit")
+                          child: AutoSizeText(
+                              loaded && (count< snap.data()?["Questions"].length-1 )
+                                  ?
+                              "Save & Next"
+                                  :
+                              "Submit",
+                            style: GoogleFonts.tiltNeon(
+                              color: Colors.black,
+                              fontSize: 16
+                            ),
+                          )
                       )
                     ],
                   ),
@@ -780,9 +793,9 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
         )
     ):
     const SizedBox(
-    child: loading(
-    text: 'Please wait Quiz is Fetching from Server',
-    ),
+      child: loading(
+        text: 'Please wait Quiz is Fetching from Server',
+      ),
     );
   }
 
@@ -873,7 +886,6 @@ class _timeState extends State<time> {
 
 submit(BuildContext context,int notesId) async {
   _timer.cancel();
-  //super.dispose();
   Navigator.push(context,
     PageTransition(
         child: const loading(text: "Data is uploading to the server Please wait."),

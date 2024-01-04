@@ -22,8 +22,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
   void initState() {
     // TODO: implement initState
     super.initState();
-    /*tabs.add(const TeachersList());
-    tabs.add(const StudentsList());*/
     _tabController=TabController(length: 2, vsync: this);
   }
   @override
@@ -31,7 +29,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: Drawer(
-        //width: size.width*0.8,
         backgroundColor: Colors.white,
         child: ListView(
           // Important: Remove any padding from the ListView.
@@ -200,12 +197,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
         ),
       ),
       body: Container(
-         height: size.height*1,
+        height: size.height*1,
         width: size.width*1,
         decoration: const BoxDecoration(
-            color:Colors.grey
+            color:Colors.white
         ),
-
         child: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
           child: Column(
