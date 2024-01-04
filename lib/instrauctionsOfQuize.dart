@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'TakeQuize.dart';
 
@@ -461,10 +462,14 @@ class QuizInstructions extends StatelessWidget {
         ],
       ),
       floatingActionButton: InkWell(
-        onTap: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-            return QuizScreen(notesId: 1,);
-          },));
+        onTap: () async {
+          await FlutterWindowManager.addFlags(
+              FlutterWindowManager.FLAG_SECURE).whenComplete(() {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+              return QuizScreen(notesId: 1,);
+            },));
+          });
+
         },
         child: Container(
           height: size.height*0.061,
