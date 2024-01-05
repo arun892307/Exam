@@ -17,13 +17,13 @@ class _UploadDataState extends State<UploadData> {
   TextEditingController option3 = TextEditingController();
   TextEditingController option4 = TextEditingController();
   TextEditingController paperNo = TextEditingController();
-  String CorrectOption ="";
+  String correctOption ="";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Upload Questions"),
+        title: const Text("Upload Questions"),
         actions: [
           SizedBox(
             width: size.width*0.3,
@@ -66,7 +66,7 @@ class _UploadDataState extends State<UploadData> {
             child: TextField(
               maxLines: 10,
               controller: question,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Question"
               ),
             ),
@@ -80,11 +80,11 @@ class _UploadDataState extends State<UploadData> {
                   suffixIcon: IconButton(
                     onPressed: (){
                       setState(() {
-                        CorrectOption = option1.text.trim();
+                        correctOption = option1.text.trim();
                       });
                     },
                     icon: Icon(
-                      Icons.check,color: (CorrectOption !="" && option1.text == CorrectOption) ? Colors.green : Colors.grey,
+                      Icons.check,color: (correctOption !="" && option1.text == correctOption) ? Colors.green : Colors.grey,
                     ),
                   )
               ),
@@ -99,11 +99,11 @@ class _UploadDataState extends State<UploadData> {
                   suffixIcon: IconButton(
                     onPressed: (){
                       setState(() {
-                        CorrectOption = option2.text.trim();
+                        correctOption = option2.text.trim();
                       });
                     },
                     icon: Icon(
-                      Icons.check,color: (CorrectOption !="" && option2.text == CorrectOption) ? Colors.green : Colors.grey,
+                      Icons.check,color: (correctOption !="" && option2.text == correctOption) ? Colors.green : Colors.grey,
                     ),
                   )
               ),
@@ -118,11 +118,11 @@ class _UploadDataState extends State<UploadData> {
                   suffixIcon: IconButton(
                     onPressed: (){
                         setState(() {
-                          CorrectOption = option3.text.trim();
+                          correctOption = option3.text.trim();
                         });
                     },
                     icon: Icon(
-                      Icons.check,color: (CorrectOption !="" && option3.text == CorrectOption) ? Colors.green : Colors.grey,
+                      Icons.check,color: (correctOption !="" && option3.text == correctOption) ? Colors.green : Colors.grey,
                     ),
                   )
               ),
@@ -137,11 +137,11 @@ class _UploadDataState extends State<UploadData> {
                   suffixIcon: IconButton(
                     onPressed: (){
                       setState(() {
-                        CorrectOption = option4.text.trim();
+                        correctOption = option4.text.trim();
                       });
                     },
                     icon: Icon(
-                      Icons.check,color: (CorrectOption !="" && option4.text == CorrectOption) ? Colors.green : Colors.grey,
+                      Icons.check,color: (correctOption !="" && option4.text == correctOption) ? Colors.green : Colors.grey,
                     ),
                   )
               ),
@@ -192,7 +192,7 @@ class _UploadDataState extends State<UploadData> {
                       "Question" : question.text.trim(),
                       "QuestionH" : questionh,
                       "OptionsH" : options,
-                      "Correct option" : CorrectOption
+                      "Correct option" : correctOption
                     }])
                   });
                 }
@@ -208,7 +208,7 @@ class _UploadDataState extends State<UploadData> {
                       "Question" : question.text.trim(),
                       "QuestionH" : questionh,
                       "OptionsH" : options,
-                      "Correct option" : CorrectOption
+                      "Correct option" : correctOption
                     }])
                   });
                 }
@@ -231,7 +231,7 @@ class _UploadDataState extends State<UploadData> {
 
                     behavior: SnackBarBehavior.floating,
                     margin: EdgeInsets.only(bottom: size.height*0.82),
-                      content: Text("Andhe sare Fields Bhar phle"),
+                      content: const Text("Andhe sare Fields Bhar phle"),
                   ),
               );
             }

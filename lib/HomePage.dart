@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learning_ptalform/practice_paper.dart';
 import 'package:learning_ptalform/previous_year_papers.dart';
-
 import 'Constraints.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,16 +12,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
-  late TabController _tabController;
-  int currTab=0;
+class _HomePageState extends State<HomePage>{
+
   List<Widget> tabs=[const PracticePapers(),const PreviousYearPaper()];
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _tabController=TabController(length: 2, vsync: this);
-  }
+  int index = 0;
+  double slider= 25;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -78,14 +72,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                 )
             ),
             ListTile(
-              leading: Icon(Icons.home,),
+              leading: const Icon(Icons.home,),
                 title: const Text("Home"),
                 onTap: (){
                  Navigator.pop(context);
                 }
             ),
             ListTile(
-                leading: Icon(Icons.settings,),
+                leading: const Icon(Icons.settings,),
                 title: const Text("Settings"),
                 onTap: (){
                   Navigator.pop(context);
@@ -99,7 +93,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                 }
             ),
             ListTile(
-                leading: Icon(Icons.logout,),
+                leading: const Icon(Icons.logout,),
                 title: const Text("Log Out"),
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
@@ -120,91 +114,117 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
           ),
         ),
       ),
-      body: Container(
-        height: size.height*1,
-        width: size.width*1,
+      body: tabs[index],
+      bottomNavigationBar: Container(
+        height: size.height * 0.055,
+        margin: EdgeInsets.fromLTRB(size.width*0.03,5,size.width*0.03,size.height*0.01),
         decoration: const BoxDecoration(
-            color:Colors.white
+          color: Colors.transparent,
+          borderRadius: BorderRadius.all(Radius.circular(15),),
         ),
-        child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(
-                height: size.height,
-                width: size.width,
-                child: tabs[currTab],
-              )
-            ],
-          ),
-        ),
-      ),
-      bottomSheet: SizedBox(
-        height: size.height * 0.06,
-        width: size.width * 1,
-        child: Column(
+        child: Stack(
           children: [
-            TabBar(
-              indicatorColor: Colors.black,
-              labelColor: Colors.green,
+            Container(
+              height: size.height * 0.055,
+              decoration: const BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        index = 0;
+                        slider= size.width*0.08;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Container(
 
-              controller: _tabController,
-              onTap: (value) {
-                setState(() {
-                  currTab=value;
-                });
-              },
-              tabs: [
-                SizedBox(
-                  height: size.height*0.05,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: size.width*0.065,
-                        child: Image.asset("assets/icon/practicepaper.png"),
-                      ),
-                      SizedBox(
-                        width: size.width*0.02,
-                      ),
-                      FittedBox(
-                        fit: BoxFit.cover,
-                        child: AutoSizeText(
-                          "Practice Paper",
-                          style: GoogleFonts.openSans(
-                              fontSize: size.height * 0.02,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black
+                          width: size.width*0.1,
+                          height: size.height*0.035,
+                          decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            image: DecorationImage(
+                              image: AssetImage("assets/icon/target.png"),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        AutoSizeText("Practice Papers",style: GoogleFonts.openSans(color: Colors.black),)
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height*0.05,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: size.width*0.065,
-                        child: Image.asset("assets/icon/previousyearPaper.png"),
-                      ),
-                      FittedBox(
-                        fit: BoxFit.cover,
-                        child: AutoSizeText(
-                          "Previous Paper",
-                          style: GoogleFonts.openSans(
-                              fontSize: size.height * 0.02,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        index = 1;
+                        slider= size.width*0.5;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          width: size.width*0.08,
+                          height: size.height*0.04,
+                          decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            image: DecorationImage(
+                              image: AssetImage("assets/icon/exam.png"),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        AutoSizeText("Exam Papers",style: GoogleFonts.openSans(color: Colors.black),)
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            AnimatedPositioned(
+              height: size.height*0.055,
+              left: slider,
+              duration: const Duration(milliseconds: 300),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: size.width*0.4,
+                    height: size.height*0.0055,
+                    decoration: const BoxDecoration(
+
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+                        gradient: LinearGradient(
+                            colors: [
+                              Color.fromRGBO(89, 193, 115, 1),
+                              Color.fromRGBO(161, 127, 224, 1),
+                              // Color.fromRGBO(93, 38, 193, 1),
+                            ])
+                    ),
+                  ),
+                  Container(
+                    width: size.width*0.4,
+                    height: size.height*0.0055,
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                              Color.fromRGBO(89, 193, 115, 1),
+                              Color.fromRGBO(161, 127, 224, 1),
+                              // Color.fromRGBO(93, 38, 193, 1),
+                            ]),
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

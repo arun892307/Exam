@@ -582,19 +582,22 @@ class _QuizScreenState extends State<QuizScreen> with WidgetsBindingObserver{
                                                 horizontal: size.width * 0.01),
                                             child: Row(
                                               children: [
-                                                AutoSizeText(
-                                                  "${index1+1}",
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 18,
-                                                    color: options[index1]==selectedOption?Colors.green:Colors.white70,
+                                                SizedBox(
+                                                  width: size.width*0.037,
+                                                  child: AutoSizeText(
+                                                    "${index1+1}.",
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 18,
+                                                      color: options[index1]==selectedOption?Colors.green:Colors.white70,
+                                                    ),
+                                                    maxLines: 1,
                                                   ),
                                                 ),
                                                 SizedBox(
                                                   width: size.width*0.03,
                                                 ),
                                                 Container(
-                                                  width: size.width * 0.8,
-                                                  height: size.height * 0.065,
+                                                  width: size.width * 0.83,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                     BorderRadius.circular(
@@ -917,6 +920,7 @@ submit(BuildContext context,int notesId) async {
   }).whenComplete(() {
     _start = 0;
     minute=0;
+    _timer.cancel();
     milliSecond=0;
     count = 0;
     totalMinutes;
