@@ -16,7 +16,8 @@ class _HomePageState extends State<HomePage>{
 
   List<Widget> tabs=[const PracticePapers(),const PreviousYearPaper()];
   int index = 0;
-  double slider= 25;
+  double sliderPos= 10;
+  double sliderLen= 85;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage>{
           ),
         ),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           centerTitle: true,
           backgroundColor: const Color.fromRGBO(156, 190, 244, 1),
           elevation: 0,
@@ -153,7 +154,36 @@ class _HomePageState extends State<HomePage>{
                       onTap: () {
                         setState(() {
                           index = 0;
-                          slider= size.width*0.08;
+                          sliderPos= size.width*0.03;
+                          sliderLen=size.width*0.2;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+
+                            width: size.width*0.1,
+                            height: size.height*0.035,
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/house.png"),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          AutoSizeText("Home",style: GoogleFonts.openSans(color: Colors.black),)
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        setState(() {
+                          index = 0;
+                          sliderPos= size.width*0.25;
+                          sliderLen=size.width*0.36;
                         });
                       },
                       child: Row(
@@ -180,7 +210,8 @@ class _HomePageState extends State<HomePage>{
                       onTap: () {
                         setState(() {
                           index = 1;
-                          slider= size.width*0.5;
+                          sliderPos= size.width*0.62;
+                          sliderLen=size.width*0.3;
                         });
                       },
                       child: Row(
@@ -205,13 +236,13 @@ class _HomePageState extends State<HomePage>{
               ),
               AnimatedPositioned(
                 height: size.height*0.055,
-                left: slider,
+                left: sliderPos,
                 duration: const Duration(milliseconds: 300),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: size.width*0.4,
+                      width: sliderLen,
                       height: size.height*0.0055,
                       decoration: const BoxDecoration(
 
@@ -224,7 +255,7 @@ class _HomePageState extends State<HomePage>{
                       ),
                     ),
                     Container(
-                      width: size.width*0.4,
+                      width: sliderLen,
                       height: size.height*0.0055,
                       decoration: const BoxDecoration(
                           gradient: LinearGradient(
