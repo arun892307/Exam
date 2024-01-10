@@ -1,6 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_upi_pay/Src/payment.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'content_page.dart';
 
 class PracticePapers extends StatefulWidget {
   const PracticePapers({Key? key}) : super(key: key);
@@ -9,11 +12,52 @@ class PracticePapers extends StatefulWidget {
 }
 
 class _PracticePapersState extends State<PracticePapers> {
+
   final TextEditingController question=TextEditingController();
+  final TextEditingController name=TextEditingController();
+  FlutterPayment flutterPayment = FlutterPayment();
+  Color textColor = Colors.white;
+  List<String> sectionTwoParts = [
+    "Schedule of power",
+    "Basic knowledge about DMRC Projects, Consultancy, Property Business,Property Development and O&M, including O&M Statistics",
+    "The Various Policies of DMRC",
+    "The Right to Information Act, 2005",
+    "THE DELHI METRO RAILWAY (O&M) ACT, 2002 - AS AMENDED FROM TIME TO TIME",
+    "Code on Wages, 2019, The Occupational Safety, Health and Working Conditions Code, 2020, and The Code on Social Security, 2020",
+    "Social Security, Staff Welfare Schemes, and various related benefits to Employees in DMRC",
+    "Multi-Purpose Advance",
+    "Social Welfare – GRATUITY, PF, PENSION",
+    "HOUSE BUILDING ADVANCE",
+    "Corporate Social Responsibility",
+    "Conduct, Discipline and Appeal Rules, Rules of Positive Discipline, Code of Ethics and Rules regarding Zero Tolerance towards Corruption",
+    "VISION, MISSION & CULTURE",
+    "BUDGET",
+    "TENDER",
+    "Official language"
+  ];
+  List<String> sectionTwoIcons = [
+    "save-energy.png",
+    "knowledge.png",
+    "policy.png",
+    "women-rights.png",
+    "amendment.png",
+    "password.png",
+    "account.png",
+    "pie-chart.png",
+    "retirement.png",
+    "alone.png",
+    "accountability.png",
+    "work.png",
+    "united.png",
+    "budget.png",
+    "auction.png",
+    "languages.png"
+  ];
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return SingleChildScrollView(
+
       child: Container(
         color: Colors.transparent,
         child: Column(
@@ -21,7 +65,7 @@ class _PracticePapersState extends State<PracticePapers> {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: AutoSizeText("Paper-I: Technical Paper",style: GoogleFonts.openSans(color: Colors.black,fontWeight: FontWeight.w600,fontSize: size.width*0.05),),
+              child: AutoSizeText("Paper-I: Technical Paper",style: GoogleFonts.openSans(color: textColor,fontWeight: FontWeight.w600,fontSize: size.width*0.05),),
             ),
             Card(
               color: Colors.white24,
@@ -41,31 +85,39 @@ class _PracticePapersState extends State<PracticePapers> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    Column(
-                      children: [
-                        SizedBox(
-                          width: size.width*0.15,
-                          child: Image.asset("assets/images/electrical-engineer.png"),
-                        ),
-                        SizedBox(height: size.height*0.01,),
-                        AutoSizeText(
-                          "Electrical\nEngineer",
-                          style: GoogleFonts.openSans(color: Colors.black,fontWeight: FontWeight.w600,fontSize: size.width*0.035),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+
+                          return const ContentPage();
+                        },));
+                      },
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: size.width*0.15,
+                            child: Image.asset("assets/images/electrical-engineer.png"),
+                          ),
+                          SizedBox(height: size.height*0.01,),
+                          AutoSizeText(
+                            "Electrical\nEngineer",
+                            style: GoogleFonts.openSans(color: textColor,fontWeight: FontWeight.w600,fontSize: size.width*0.035),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
                     ),
                     Column(
                       children: [
                         SizedBox(
                           width: size.width*0.15,
-                          child: Image.asset("assets/images/electrical-engineer.png"),
+                          child: Image.asset("assets/images/it-department.png"),
                         ),
                         SizedBox(height: size.height*0.01,),
                         AutoSizeText(
                           "S&T and IT",
                           style: GoogleFonts.openSans(
-                              color: Colors.black,
+                              color: textColor,
                               fontWeight: FontWeight.w600,
                               fontSize: size.width*0.035,
                           ),
@@ -84,7 +136,7 @@ class _PracticePapersState extends State<PracticePapers> {
                         AutoSizeText(
                           "Operations",
                           style: GoogleFonts.openSans(
-                              color: Colors.black,
+                              color: textColor,
                               fontWeight: FontWeight.w600,
                               fontSize: size.width*0.035,
                           ),
@@ -103,7 +155,7 @@ class _PracticePapersState extends State<PracticePapers> {
                         AutoSizeText(
                           "Finance",
                           style: GoogleFonts.openSans(
-                            color: Colors.black,
+                            color: textColor,
                             fontWeight: FontWeight.w600,
                             fontSize: size.width*0.035,
                           ),
@@ -121,7 +173,7 @@ class _PracticePapersState extends State<PracticePapers> {
                         AutoSizeText(
                           "Human Resource",
                           style: GoogleFonts.openSans(
-                            color: Colors.black,
+                            color: textColor,
                             fontWeight: FontWeight.w600,
                             fontSize: size.width*0.035,
                           ),
@@ -138,7 +190,7 @@ class _PracticePapersState extends State<PracticePapers> {
                         SizedBox(height: size.height*0.01,),
                         AutoSizeText("Stores",
                           style: GoogleFonts.openSans(
-                            color: Colors.black,
+                            color: textColor,
                             fontWeight: FontWeight.w600,
                             fontSize: size.width*0.035,
                           ),
@@ -149,12 +201,12 @@ class _PracticePapersState extends State<PracticePapers> {
                       children: [
                         SizedBox(
                           width: size.width*0.15,
-                          child: Image.asset("assets/images/electrical-engineer.png"),
+                          child: Image.asset("assets/images/civil-engineering.png"),
                         ),
                         SizedBox(height: size.height*0.01,),
                         AutoSizeText("Civil\nEngineer",
                           style: GoogleFonts.openSans(
-                            color: Colors.black,
+                            color: textColor,
                             fontWeight: FontWeight.w600,
                             fontSize: size.width*0.035,
                           ),
@@ -170,7 +222,7 @@ class _PracticePapersState extends State<PracticePapers> {
                         SizedBox(height: size.height*0.01,),
                         AutoSizeText("Architect\nEngineer",
                           style: GoogleFonts.openSans(
-                            color: Colors.black,
+                            color: textColor,
                             fontWeight: FontWeight.w600,
                             fontSize: size.width*0.035,
                           ),
@@ -188,7 +240,7 @@ class _PracticePapersState extends State<PracticePapers> {
                         SizedBox(height: size.height*0.01,),
                         AutoSizeText("Security",
                           style: GoogleFonts.openSans(
-                            color: Colors.black,
+                            color: textColor,
                             fontWeight: FontWeight.w600,
                             fontSize: size.width*0.035,
                           ),
@@ -200,174 +252,119 @@ class _PracticePapersState extends State<PracticePapers> {
                 ),
               ),
             ),
+            SizedBox(
+              height: size.height*0.02,
+            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: AutoSizeText("Paper-II: General Policy & Rules",style: GoogleFonts.openSans(color: Colors.black,fontWeight: FontWeight.w600,fontSize: size.width*0.05),),
+              child: AutoSizeText("Paper-II: General Policy & Rules",style: GoogleFonts.openSans(color: textColor,fontWeight: FontWeight.w600,fontSize: size.width*0.05),),
             ),
-            SizedBox(height: size.height*0.03,),
-            GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+            Card(
+              color: Colors.white24,
+              elevation: 30,
+              shadowColor: Colors.white10,
+              shape: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.black
+                  )
               ),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/electrical-engineer.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText(
-                      "Electrical\nEngineer",
-                      style: GoogleFonts.openSans(color: Colors.black,fontWeight: FontWeight.w600,fontSize: size.width*0.035),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/electrical-engineer.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText(
-                      "S&T and IT",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(10),
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: sectionTwoParts.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        width: size.width*0.15,
+                        child: Image.asset("assets/images/${sectionTwoIcons[index]}"),
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-
-                  ],
+                      SizedBox(height: size.height*0.01,),
+                      AutoSizeText(
+                        sectionTwoParts[index],
+                        style: GoogleFonts.openSans(color: textColor,fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        minFontSize: 13,
+                        maxFontSize: 13,
+                      )
+                    ],
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: TextField(
+                maxLines: 1,
+                controller: question,
+                decoration: const InputDecoration(
+                  hintText: "UPI Id",
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/operations.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText(
-                      "Operations",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-
-                  ],
+              ),
+            ),
+            Card(
+              child: TextField(
+                maxLines: 1,
+                controller: name,
+                decoration: const InputDecoration(
+                  hintText: "Name",
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/financial.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText(
-                      "Finance",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+              ),
+            ),
+            ListTile(
+              title: AutoSizeText(
+                "Payment",
+                style: GoogleFonts.openSans(
+                  fontSize: 18,
+                  color: textColor,
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/human-resource.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText(
-                      "Human Resource",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/store.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText("Stores",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
-                      ),
-                      textAlign: TextAlign.center,),
-                  ],
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/electrical-engineer.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText("Civil\nEngineer",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
-                      ),
-                      textAlign: TextAlign.center,),
-                  ],
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/architect.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText("Architect\nEngineer",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-
-                  ],
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: size.width*0.15,
-                      child: Image.asset("assets/images/protection.png"),
-                    ),
-                    SizedBox(height: size.height*0.01,),
-                    AutoSizeText("Security",
-                      style: GoogleFonts.openSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: size.width*0.035,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ],
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios_rounded,color: Colors.black,),
+              onTap: () async {
+                try{
+                  flutterPayment.launchUpi(
+                      upiId: question.text.trim(),
+                      name: name.text.trim(),
+                      amount: "1",
+                      message: "test",
+                      currency: "INR");
+                } catch (e) {
+                  print(e);
+                }
+                // try{final res = await EasyUpiPaymentPlatform.instance.startPayment(
+                //   EasyUpiPaymentModel(
+                //     payeeVpa: question.text.trim(),
+                //     payeeName: name.text.trim(),
+                //     amount: 1.0,
+                //     description: 'Testing payment',
+                //
+                //   ),
+                // ).then((value) async {
+                //   await FirebaseFirestore.instance.collection("User Details").doc(usermodel["Email"]).update({
+                //     "then":{value?.amount,value?.approvalRefNo,value?.transactionId,value.toString()},
+                //   });
+                // }).onError((error, stackTrace) async {
+                //   await FirebaseFirestore.instance.collection("User Details").doc(usermodel["Email"]).update({
+                //     "On Error":{error.toString()},
+                //   });
+                // });
+                // // TODO: add your success logic here
+                // print(res);
+                // await FirebaseFirestore.instance.collection("User Details").doc(usermodel["Email"]).update({
+                //   "Res":res,
+                // });
+                // }on EasyUpiPaymentException catch(e){
+                //   await FirebaseFirestore.instance.collection("User Details").doc(usermodel["Email"]).update({
+                //     "Error": {e.message,e.details,e.stacktrace,e.type},
+                //   });
+                // }
+              },
             ),
           ],
         )

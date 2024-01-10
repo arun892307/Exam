@@ -43,7 +43,7 @@ class _UploadDataState extends State<UploadData> {
                   controller: paperNo,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                      hintText: "Paper No",
+                      hintText: "Section",
                   ),
                 ),
               ),

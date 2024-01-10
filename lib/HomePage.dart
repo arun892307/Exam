@@ -18,24 +18,27 @@ class _HomePageState extends State<HomePage>{
   int index = 0;
   double sliderPos= 10;
   double sliderLen= 85;
+  Color themeColor = Colors.white;
+  Color iconColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color.fromRGBO(156, 190, 244, 1),
-              Color.fromRGBO(194, 232, 251, 1),
-            ],
-          )
-      ),
+      color: Colors.black87,
+      // decoration: const BoxDecoration(
+      //     gradient: LinearGradient(
+      //       begin: Alignment.topLeft,
+      //       end: Alignment.bottomRight,
+      //       colors: [
+      //         Color.fromRGBO(156, 190, 244, 1),
+      //         Color.fromRGBO(194, 232, 251, 1),
+      //       ],
+      //     )
+      // ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         drawer: Drawer(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color.fromRGBO(33, 33, 33, 1),
           child: ListView(
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
@@ -85,29 +88,41 @@ class _HomePageState extends State<HomePage>{
                   )
               ),
               ListTile(
+                iconColor: iconColor,
                 leading: const Icon(Icons.home,),
-                  title: const Text("Home"),
+                  title: AutoSizeText("Home",style: GoogleFonts.openSans(
+                    color: themeColor
+                  ),),
                   onTap: (){
                    Navigator.pop(context);
                   }
               ),
               ListTile(
+                  iconColor: iconColor,
                   leading: const Icon(Icons.settings,),
-                  title: const Text("Settings"),
+                  title: AutoSizeText("Settings",style: GoogleFonts.openSans(
+                      color: themeColor
+                  ),),
                   onTap: (){
                     Navigator.pop(context);
                   }
               ),
               ListTile(
+                  iconColor: iconColor,
                   leading: const Icon(Icons.leaderboard_rounded,),
-                  title: const Text("LeaderBoard"),
+                  title: AutoSizeText("LeaderBoard",style: GoogleFonts.openSans(
+                      color: themeColor
+                  ),),
                   onTap: (){
 
                   }
               ),
               ListTile(
+                  iconColor: iconColor,
                   leading: const Icon(Icons.logout,),
-                  title: const Text("Log Out"),
+                  title: AutoSizeText("Log Out",style: GoogleFonts.openSans(
+                      color: themeColor
+                  ),),
                   onTap: () async {
                     await FirebaseAuth.instance.signOut();
                   }
@@ -116,14 +131,15 @@ class _HomePageState extends State<HomePage>{
           ),
         ),
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.white),
           centerTitle: true,
-          backgroundColor: const Color.fromRGBO(156, 190, 244, 1),
+          backgroundColor: Colors.transparent,
+          //const Color.fromRGBO(156, 190, 244, 1),
           elevation: 0,
           title: AutoSizeText(
             "Start Your Learning",
             style: GoogleFonts.openSans(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: size.height*0.022,
               fontWeight: FontWeight.w600
             ),
@@ -172,7 +188,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                             ),
                           ),
-                          AutoSizeText("Home",style: GoogleFonts.openSans(color: Colors.black),)
+                          AutoSizeText("Home",style: GoogleFonts.openSans(color: themeColor),)
                         ],
                       ),
                     ),
@@ -200,7 +216,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                             ),
                           ),
-                          AutoSizeText("Practice Papers",style: GoogleFonts.openSans(color: Colors.black),)
+                          AutoSizeText("Practice Papers",style: GoogleFonts.openSans(color: themeColor),)
                         ],
                       ),
                     ),
@@ -227,7 +243,7 @@ class _HomePageState extends State<HomePage>{
                               ),
                             ),
                           ),
-                          AutoSizeText("Exam Papers",style: GoogleFonts.openSans(color: Colors.black),)
+                          AutoSizeText("Exam Papers",style: GoogleFonts.openSans(color: themeColor),)
                         ],
                       ),
                     ),
@@ -244,10 +260,10 @@ class _HomePageState extends State<HomePage>{
                     Container(
                       width: sliderLen,
                       height: size.height*0.0055,
-                      decoration: const BoxDecoration(
-
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
-                          gradient: LinearGradient(
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade900,
+                          borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+                          gradient: const LinearGradient(
                               colors: [
                                 Color.fromRGBO(156, 190, 244, 1),
                                 Color.fromRGBO(194, 232, 251, 1),
@@ -257,13 +273,14 @@ class _HomePageState extends State<HomePage>{
                     Container(
                       width: sliderLen,
                       height: size.height*0.0055,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade900,
+                          gradient: const LinearGradient(
                               colors: [
                                 Color.fromRGBO(156, 190, 244, 1),
                                 Color.fromRGBO(194, 232, 251, 1),
                               ]),
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
                       ),
                     ),
                   ],

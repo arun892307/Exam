@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:learning_ptalform/MainPage.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -76,7 +77,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                   ),
                   SizedBox(
-                    height: size.height * 0.036,
+                    height: size.height * 0.015,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: size.height * 0.022,right: size.height * 0.022,top: size.height * 0.022),
@@ -337,7 +338,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
 
                   SizedBox(
-                    height: size.height * 0.075,
+                    height: size.height * 0.03,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: size.width * 0.08),
@@ -466,7 +467,116 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                       ),
                     ),
-                  )
+                  ),
+
+                  SizedBox(
+                    height: size.height*0.03,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: size.width*0.4,
+                        child: const Divider(
+                          color: Colors.black54,
+                          height: 2,
+                          endIndent: 5,
+                          indent: 30,
+                          thickness: 2,
+                        ),
+                      ),
+                      AutoSizeText(
+                        "OR",
+                        style: GoogleFonts.openSans(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w400,
+                            fontSize: size.height * 0.02),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        width: size.width*0.4,
+                        child: const Divider(
+                          color: Colors.black54,
+                          height: 2,
+                          endIndent: 30,
+                          indent: 5,
+                          thickness: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: size.height*0.03,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () async{
+                          final FirebaseAuth auth = FirebaseAuth.instance;
+                          final GoogleSignIn googleSignIn = GoogleSignIn();
+                          final GoogleSignInAccount?  googleSignInAccount = await googleSignIn.signIn() ;
+                          if(googleSignInAccount !=null){
+                            final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+                            final AuthCredential authCredential = GoogleAuthProvider.credential(
+                                idToken: googleSignInAuthentication.idToken,
+                                accessToken: googleSignInAuthentication.accessToken);
+
+                            // Getting users credential
+                            UserCredential result = await auth.signInWithCredential(authCredential);
+                            User? user = result.user;
+                            print(user?.displayName);
+                            if (result != null) {
+                              final userDoc = await FirebaseFirestore.instance.collection("User Details").doc(user?.email).get();
+                              if(!userDoc.exists){
+                                await FirebaseFirestore.instance.collection("User Details").doc(user?.email).set({
+                                  "Name" : user?.displayName,
+                                  "Email" : user?.email
+                                });
+                              }
+
+                              Navigator.pushReplacement(
+                                  context,
+                                  PageTransition(
+                                      child: const MainPage(),
+                                      type: PageTransitionType.leftToRightJoined,
+                                      childCurrent: const CreateAccount(),
+                                      duration: const Duration(milliseconds: 350),
+                                  ),
+                              );
+
+                            }
+                          }
+
+                        },
+                        child: Container(
+                          height: size.height*0.055,
+                          width: size.height*0.055,
+                          decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              shape: BoxShape.circle,
+                              image: DecorationImage(image: AssetImage("assets/icon/google.png"),fit: BoxFit.contain)
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width*0.12,
+                      ),
+                      InkWell(
+                        onTap: (){},
+                        child: Container(
+                          height: size.height*0.055,
+                          width: size.height*0.055,
+                          decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              shape: BoxShape.circle,
+                              image: DecorationImage(image: AssetImage("assets/icon/facebook.png"),fit: BoxFit.contain)
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
